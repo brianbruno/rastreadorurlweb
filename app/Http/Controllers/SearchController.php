@@ -12,13 +12,20 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller {
 
-    public function index($request) {
+    public function index() {
+        $visitas = $this->contarVisitas();
+        $view = view('dashboard', ['resultados' => true, 'visitas' => $visitas]);
+        return $view;
+    }
+
+    public function buscar($request) {
         $url = $request->input('inputURL');
-        $view = view('dashboard');
+        $visitas = $this->contarVisitas();
+        $view = view('dashboard', ['resultados' => false, 'visitas' => $visitas]);
 
         if (isset($url)) {
             $resultado = $this->buscarURL($url);
-            if (sizeof($resultado) > 0)
+            if (!empty($resultado))
                 $view = view('busca', ['resultados' => $resultado->jsonSerialize()]);
         }
         return $view;
@@ -48,7 +55,7 @@ class SearchController extends Controller {
         $id_origem = $id;
 
         while ($id_origem != null) {
-            $origem = DB::table('url')
+            $origem = DB::table('url')->distinct()
                 ->select('ID', 'URL', 'ID_ORIGEM')
                 ->where('ID', $id_origem)
                 ->get();

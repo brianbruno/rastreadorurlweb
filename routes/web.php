@@ -13,12 +13,12 @@
 
 Route::get('/', function () {
     $search = app()->make('\App\Http\Controllers\SearchController');
-    return view('dashboard', ['visitas' => $search->contarVisitas()]);
+    return $search->index();
 });
 
 Route::post('/buscar', function (Illuminate\Http\Request $request) {
     $homeController = app()->make('\App\Http\Controllers\SearchController');
-    return $homeController->index($request);
+    return $homeController->buscar($request);
 })->name('buscar');
 
 Route::get('/find/{id}', function ($id) {

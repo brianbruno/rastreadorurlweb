@@ -65,16 +65,6 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
-    <div class="content">
-        <div class="title m-b-md">
-            <a href="/">Rastreador</a>
-        </div>
-        <div>
-            @yield('content')
-        </div>
-
-    </div>
-</div>
+    @yield('content')
 </body>
 </html>
