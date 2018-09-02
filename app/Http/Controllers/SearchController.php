@@ -24,6 +24,13 @@ class SearchController extends Controller {
         return $view;
     }
 
+    public function contarVisitas() {
+        $registro = DB::table('visitas')
+            ->select(DB::raw('count(ID) as visitas'))
+            ->get();
+        return $registro[0]->visitas;
+    }
+
     public function buscarURL($url) {
         $registro = DB::table('url')
             ->select('ID', 'URL', 'ID_ORIGEM')

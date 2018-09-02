@@ -2,6 +2,7 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300");
 
 // Variables
 @import "variables";
@@ -15,22 +16,39 @@
 }
 
 html, body {
-    color: #38008d;
-    background-color: #000000;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
+    color: #EB5160;
+    background-color: #000500;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
     height: 100vh;
     margin: 0;
 }
 
 input {
-    color: #6019f0 !important;
-    background-color: #0e0e0e !important;
-    font-family: 'Roboto', sans-serif;
-    font-size: 50px;
+    color: #E4DFDA !important;
+    background-color: #282828 !important;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 40px !important;
     border: 0 !important;
 }
 
+.footer {
+    color: #E4DFDA;
+    font-weight: 300;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
 .result {
-    color: #ff00e1;
+    color: #E4DFDA;
+    font-weight: 300;
+}
+
+tr {
+    font-size: 25px;
+}
+
+table {
+    opacity: 25;
 }

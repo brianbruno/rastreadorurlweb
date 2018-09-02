@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    $search = app()->make('\App\Http\Controllers\SearchController');
+    return view('dashboard', ['visitas' => $search->contarVisitas()]);
 });
 
 Route::post('/buscar', function (Illuminate\Http\Request $request) {

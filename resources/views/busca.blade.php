@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th scope="col">Link</th>
+        <th scope="col">Links</th>
     </tr>
     </thead>
     <tbody>
