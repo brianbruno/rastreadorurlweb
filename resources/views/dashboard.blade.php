@@ -6,6 +6,6 @@
     <div class="form-group">
         <input type="text" class="form-control" id="inputURL" name="inputURL" placeholder="Digite a URL">
     </div>
-    <button type="submit" class="btn btn-primary">Buscar</button>
+    <button type="submit" class="btn btn-toppurple">Buscar</button>
 </form>
 @endsection

@@ -2,6 +2,6 @@
 
 @section('content')
     @foreach ($resultados as $resultado)
-        <p>{{ $resultado }}</p>
+        <p class="result">{{ $resultado }}</p>
     @endforeach
 @endsection

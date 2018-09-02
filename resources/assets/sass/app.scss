@@ -1,6 +1,7 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 // Variables
 @import "variables";
@@ -11,4 +12,25 @@
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+html, body {
+    color: #38008d;
+    background-color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    height: 100vh;
+    margin: 0;
+}
+
+input {
+    color: #6019f0 !important;
+    background-color: #0e0e0e !important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    border: 0 !important;
+}
+
+.result {
+    color: #ff00e1;
 }

@@ -11,7 +11,7 @@
     @foreach ($resultados as $resultado)
     <tr>
         <td>
-            <a href="{{ route('find', ['id' => $resultado->ID]) }}">{{ $resultado->URL }}</a>
+            <a class="result" href="{{ route('find', ['id' => $resultado->ID]) }}">{{ $resultado->URL }}</a>
         </td>
     </tr>
     @endforeach

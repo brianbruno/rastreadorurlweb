@@ -7,22 +7,10 @@
 
     <title>Rastreador de URL</title>
 
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <style>
-        html, body {
-            background-color: #fff;
-            color: #384145 !important;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
-
         .full-height {
             height: 100vh;
         }
@@ -48,7 +36,7 @@
         }
 
         .title {
-            font-size: 84px;
+            font-size: 104px;
         }
 
         .links > a {
