@@ -26,3 +26,8 @@ Route::get('/find/{id}', function ($id) {
     $resultado = $homeController->buscarOrigem($id);
     return view('resultado', ['resultados' => array_reverse($resultado)]);
 })->name('find');
+
+Route::get('/bot', function() {
+  $bot = app()->make('\App\Http\Controllers\Bot\Bot');
+  $bot->run();
+});
