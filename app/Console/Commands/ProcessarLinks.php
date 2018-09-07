@@ -58,9 +58,9 @@ class ProcessarLinks extends Command {
 
 
 //        if ($this->confirm('Gostaria de exibir o log de erros?')) {
-//            foreach ($this->log as $erro) {
-//                $this->error($erro);
-//            }
+            foreach ($this->log as $erro) {
+                $this->error($erro);
+            }
 //        }
 
 
