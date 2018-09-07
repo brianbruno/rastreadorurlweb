@@ -18,14 +18,15 @@ class InsertController extends Controller {
     }
 
     public function inserir($request) {
+        $result = false;
         try {
             $url = $request->input('inputURL');
             $data = array(
                 "URL" => $url,
                 "ID_ORIGEM" => null
             );
-            Url::insert($data);
-            $result = true;
+            if (Url::insert($data))
+                $result = true;
         } catch (\Exception $exception) {
             $result = false;
         }

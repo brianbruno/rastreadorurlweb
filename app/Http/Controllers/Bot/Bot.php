@@ -31,7 +31,7 @@ class Bot extends Controller {
       $obj = array();
       foreach ($urls as $url) {
           if (gettype($url) == 'string') {
-              if (strlen($url) > 0) {
+              if (strlen($url) > 0 && strlen($url) <= 200) {
                   $novo = array(
                       "ID_ORIGEM" => $this->request->ID,
                       "URL" => $url
@@ -39,8 +39,8 @@ class Bot extends Controller {
                   $obj[] = $novo;
               }
           } else if (gettype($url) == 'array') {
-              $novos_urls = $this->refinarLinks($url);
-              $objGerado = $this->gerarObjeto($novos_urls);
+//              $novos_urls = $this->refinarLinks($url);
+              $objGerado = $this->gerarObjeto($url);
               $obj = array_merge($obj, $objGerado);
           }
       }
@@ -58,7 +58,7 @@ class Bot extends Controller {
   public function verificarContent () {
 
       $urls = $this->obterArrayUrls();
-      $urls = $this->removerLinksIguais($urls);
+//      $urls = $this->removerLinksIguais($urls);
 
       return $urls;
   }

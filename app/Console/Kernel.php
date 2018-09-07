@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('processar:links')->everyMinute()->emailOutputTo('log@brian.place');
-
+//        $schedule->command('processar:links')->everyMinute()->emailOutputTo('log@brian.place');
+        $schedule->command('processar:links')->everyMinute();
     }
 
     /**
