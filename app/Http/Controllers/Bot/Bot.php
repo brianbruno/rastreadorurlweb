@@ -32,7 +32,7 @@ class Bot extends Controller {
       
       $urls = $this->obterArrayUrls();    
       $urls = $this->removerLinksIguais($urls);
-      var_dump($urls);die;
+     
       return $urls;
   }
   
@@ -54,6 +54,17 @@ class Bot extends Controller {
     preg_match_all('/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', 
                    $this->content, $result);
     return array_unique($result);
+  }
+  
+  public function refinarLinks($links) {
+      $novos_links = array();
+      foreach ($links as $link) {
+        if (sizeof($link) > 6) {
+          $a = explode('/',substr($link, 8), 2);
+          $novos_links[] = $a[0];
+        }
+      }
+      return array_unique($novos_links);
   }
   
   public function getLinks() {

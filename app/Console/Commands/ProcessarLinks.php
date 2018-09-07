@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Http\Controllers\Bot\Bot;
 use App\Exceptions\LinkInvalido;
 use Storage;
+use Exception;
 
 
 class ProcessarLinks extends Command
@@ -61,22 +62,26 @@ class ProcessarLinks extends Command
         foreach($links as $link) { 
           try {            
             $links_novos = array_unique($this->bot->run($link));
-            print_r($links_novos);
-            $links_obtidos[] = $links_novos;
+            $links_obtidos = array_merge($links_obtidos, $links_novos[0]);
           } catch (LinkInvalido $e) {
             $this->log[] = $e->getMessage();
+          } catch (Exception $err) {
+            $this->log[] = $err->getMessage()." - ".$err->getTraceAsString();
           }
           $bar->advance();
         }
       
+        foreach ($links_obtidos as &$linha) {
+          $linha = print_r($linha, true);
+        }
+      
+        $links_obtidos = $this->bot->refinarLinks($links_obtidos);
+      
+        var_dump($links_obtidos);die;
+        Storage::disk('local')->put('log.txt', implode(PHP_EOL, $links_obtidos));
         $bar->finish();
         $this->info(' ');
-        foreach ($links_obtidos as &$linha) {
-          $linha = implode(" ", $linha);
-        }
-        $links_string = implode(" ", $links_obtidos);
       
-        Storage::disk('local')->put('log.txt', implode(PHP_EOL, $links_string));
       
         if ($this->confirm('Gostaria de exibir o log de erros?')) {
           foreach ($this->log as $erro) {
