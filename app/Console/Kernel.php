@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 //        $schedule->command('processar:links')->everyMinute()->emailOutputTo('log@brian.place');
         if (env('ATIVARBOT', false)) {
-            $schedule->command('processar:links')->everyMinute();
+            $schedule->command('processar:links')->everyFiveMinutes();
         }
     }
 
