@@ -83,7 +83,7 @@ class ProcessarLinks extends Command {
 
                 $links_novos = $this->bot->run($link);
                 $links_obtidos = array_merge($links_obtidos, $links_novos);
-
+                $this->log[] = "Links obtidos de ".$link->URL.": ".sizeof($links_novos);
             } catch (LinkInvalido $e) {
                 $this->log[] = $e->getMessage();
             } catch (Exception $err) {
