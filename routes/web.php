@@ -21,6 +21,16 @@ Route::post('/buscar', function (Illuminate\Http\Request $request) {
     return $homeController->buscar($request);
 })->name('buscar');
 
+Route::get('/inserir', function () {
+    $homeController = app()->make('\App\Http\Controllers\InsertController');
+    return $homeController->index();
+})->name('inserir');
+
+Route::post('/inserir', function (Illuminate\Http\Request $request) {
+    $homeController = app()->make('\App\Http\Controllers\InsertController');
+    return $homeController->inserir($request);
+})->name('inserir-url');
+
 Route::get('/find/{id}', function ($id) {
     $homeController = app()->make('\App\Http\Controllers\SearchController');
     $resultado = $homeController->buscarOrigem($id);
