@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
-use App\Exceptions\LinkInvalido;
 use Illuminate\Support\Facades\DB;
 use App\Visita;
 
@@ -20,12 +19,12 @@ class Bot extends Controller {
   }
 
   public function run ($request) {
-    $this->request = $request;
+      $this->request = $request;
       $this->marcarVisitado();
       $this->content = $this->http->fazerRequisicao($this->request->URL);
       $urls = $this->verificarContent();
       $objeto = $this->gerarObjeto($urls);
-    return $objeto;
+      return $objeto;
   }
 
   public function gerarObjeto($urls) {
@@ -57,10 +56,6 @@ class Bot extends Controller {
   }
 
   public function verificarContent () {
-
-      if (empty($this->content)) {
-        throw new LinkInvalido('sem_conteudo', $this->request->URL);
-      }
 
       $urls = $this->obterArrayUrls();
       $urls = $this->removerLinksIguais($urls);

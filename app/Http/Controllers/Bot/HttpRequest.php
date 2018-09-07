@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\LinkInvalido;
 
 class HttpRequest extends Controller {
-  
+
   public function fazerRequisicao($link) {
-    
+
     $response = "";
-    
+
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -31,19 +32,20 @@ class HttpRequest extends Controller {
 
     if ($err) {
         $response = null;
-    } 
-    
+        throw new LinkInvalido('sem_conteudo', $link. " - Erro: ".$err);
+    }
+
     $this->content = $response;
-    
+
     return $this->content;
   }
-  
+
   public function getLinks() {
     $origem = DB::table('url_pendente')
                 ->select('ID', 'URL', 'ID_ORIGEM')
                 ->get();
     return $origem;
-    
+
   }
-    
+
 }
