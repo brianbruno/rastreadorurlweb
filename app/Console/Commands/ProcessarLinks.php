@@ -54,6 +54,8 @@ class ProcessarLinks extends Command {
 
         $this->info(' ');
 
+        $this->info('Links processados! Total: '.sizeof($links));
+
 
 //        if ($this->confirm('Gostaria de exibir o log de erros?')) {
 //            foreach ($this->log as $erro) {
