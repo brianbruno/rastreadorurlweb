@@ -40,8 +40,9 @@ class SearchController extends Controller {
 
     public function buscarURL($url) {
         $registro = DB::table('url')
-            ->select('ID', 'URL', 'ID_ORIGEM')
-            ->whereRaw('URL LIKE "%'.$url.'%"')
+            ->select('url.ID', 'links.URL', 'url.ID_ORIGEM')
+            ->join('links', 'url.URL', '=', 'links.ID')
+            ->whereRaw('links.URL LIKE "%'.$url.'%"')
             ->get();
 
         if (sizeof($registro) > 0)
@@ -56,8 +57,9 @@ class SearchController extends Controller {
 
         while ($id_origem != null) {
             $origem = DB::table('url')->distinct()
-                ->select('ID', 'URL', 'ID_ORIGEM')
-                ->where('ID', $id_origem)
+                ->select('url.ID', 'links.URL', 'url.ID_ORIGEM')
+                ->join('links', 'url.URL', '=', 'links.ID')
+                ->where('url.ID', $id_origem)
                 ->get();
             $id_origem = $origem[0]->ID_ORIGEM;
             $array[] = $origem[0]->URL;

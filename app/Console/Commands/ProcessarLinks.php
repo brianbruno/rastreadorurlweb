@@ -5,12 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\Bot\Bot;
 use App\Exceptions\LinkInvalido;
+use App\Url;
 use Storage;
 use Exception;
 
 
-class ProcessarLinks extends Command
-{
+class ProcessarLinks extends Command {
     /**
      * The name and signature of the console command.
      *
@@ -24,7 +24,7 @@ class ProcessarLinks extends Command
      * @var string
      */
     protected $description = 'Processar links pendentes de consulta.';
-  
+
     private $bot;
     private $log;
 
@@ -45,49 +45,52 @@ class ProcessarLinks extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {      
+    public function handle() {
         $links = $this->bot->getLinks();
-      
+
+        $links_obtidos = $this->consultarLinks($links);
+
+        Url::insert($links_obtidos);
+
+        $this->info(' ');
+
+
+//        if ($this->confirm('Gostaria de exibir o log de erros?')) {
+//            foreach ($this->log as $erro) {
+//                $this->error($erro);
+//            }
+//        }
+
+
+
+    }
+
+    public function consultarLinks($links) {
         $bar = $this->output->createProgressBar(sizeof($links));
         // the finished part of the bar
-        $bar->setBarCharacter('<comment>=</comment>');        
+        $bar->setBarCharacter('<comment>=</comment>');
         // the unfinished part of the bar
         $bar->setEmptyBarCharacter(' ');
         // the progress character
         $bar->setProgressCharacter('>');
         $bar->start();
-        $links_obtidos = array();        
-      
-        foreach($links as $link) { 
-          try {            
-            $links_novos = array_unique($this->bot->run($link));
-            $links_obtidos = array_merge($links_obtidos, $links_novos[0]);
-          } catch (LinkInvalido $e) {
-            $this->log[] = $e->getMessage();
-          } catch (Exception $err) {
-            $this->log[] = $err->getMessage()." - ".$err->getTraceAsString();
-          }
-          $bar->advance();
+        $links_obtidos = array();
+
+        foreach($links as $link) {
+            try {
+
+                $links_novos = $this->bot->run($link);
+                $links_obtidos = array_merge($links_obtidos, $links_novos);
+
+            } catch (LinkInvalido $e) {
+                $this->log[] = $e->getMessage();
+            } catch (Exception $err) {
+                $this->log[] = $err->getMessage()." - ".$err->getTraceAsString();
+            }
+            $bar->advance();
         }
-      
-        foreach ($links_obtidos as &$linha) {
-          $linha = print_r($linha, true);
-        }
-      
-        $links_obtidos = $this->bot->refinarLinks($links_obtidos);
-      
-        var_dump($links_obtidos);die;
-        Storage::disk('local')->put('log.txt', implode(PHP_EOL, $links_obtidos));
+
         $bar->finish();
-        $this->info(' ');
-      
-      
-        if ($this->confirm('Gostaria de exibir o log de erros?')) {
-          foreach ($this->log as $erro) {
-            $this->error($erro);
-          }            
-        }
-//         print_r($links_obtidos);
+        return $links_obtidos;
     }
 }
