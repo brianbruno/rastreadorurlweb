@@ -7,9 +7,13 @@
                 <a href="/">Rastreador</a>
             </div>
             <div>
-                @foreach ($resultados as $resultado)
-                    <p class="result">{{ $resultado }}</p>
-                @endforeach
+                <rastreador :idurl="{{ $id }}"></rastreador>
+                {{--@foreach ($resultados as $resultado)
+                    @foreach($resultado as $sites)
+                        <p class="result">{{ $sites }}</p>
+                    @endforeach
+                @endforeach--}}
+                {{--<arvore></arvore>--}}
             </div>
 
         </div>

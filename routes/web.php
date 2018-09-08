@@ -32,10 +32,15 @@ Route::post('/inserir', function (Illuminate\Http\Request $request) {
 })->name('inserir-url');
 
 Route::get('/find/{id}', function ($id) {
+    return view('resultado', ['id' => $id]);
+})->name('find');
+
+Route::post('/getinfo/{id}', function ($id) {
+    ini_set('max_execution_time', 180);
     $homeController = app()->make('\App\Http\Controllers\SearchController');
     $resultado = $homeController->buscarOrigem($id);
-    return view('resultado', ['resultados' => array_reverse($resultado)]);
-})->name('find');
+    return $resultado;
+});
 
 Route::get('/bot', function() {
   $bot = app()->make('\App\Http\Controllers\Bot\Bot');

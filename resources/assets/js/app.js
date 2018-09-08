@@ -6,8 +6,11 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
+window.$ = window.jQuery = require('jquery');
+import LiquorTree from 'liquor-tree';
+
+Vue.use(LiquorTree);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,7 +18,12 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('example-component',  require('./components/ExampleComponent.vue'));
+Vue.component('arvore',             require('./components/TreeComponent.vue'));
+Vue.component('loading',            require('./components/ScreenService/Loading.vue'));
+Vue.component('rastreador',         require('./components/RastreadorComponent.vue'));
+
+Vue.component(LiquorTree.name, LiquorTree);
 
 const app = new Vue({
     el: '#app'

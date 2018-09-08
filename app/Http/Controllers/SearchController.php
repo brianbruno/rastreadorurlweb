@@ -39,9 +39,8 @@ class SearchController extends Controller {
     }
 
     public function buscarURL($url) {
-        $registro = DB::table('url')
-            ->select('url.ID', 'links.URL', 'url.ID_ORIGEM')
-            ->join('links', 'url.URL', '=', 'links.ID')
+        $registro = DB::table('links')->distinct()
+            ->select('links.ID', 'links.URL')
             ->whereRaw('links.URL LIKE "%'.$url.'%"')
             ->get();
 
@@ -53,16 +52,29 @@ class SearchController extends Controller {
 
     public function buscarOrigem($id) {
         $array = array();
-        $id_origem = $id;
 
-        while ($id_origem != null) {
-            $origem = DB::table('url')->distinct()
-                ->select('url.ID', 'links.URL', 'url.ID_ORIGEM')
-                ->join('links', 'url.URL', '=', 'links.ID')
-                ->where('url.ID', $id_origem)
-                ->get();
-            $id_origem = $origem[0]->ID_ORIGEM;
-            $array[] = $origem[0]->URL;
+        $ocorrencias = DB::table('url')->distinct()
+            ->select('url.ID')
+            ->where('url.URL', $id)
+            ->get();
+
+        foreach ($ocorrencias as $ocorrencia) {
+
+            $id_origem = $ocorrencia->ID;
+            $info = array();
+
+            while ($id_origem != null) {
+                $origem = DB::table('url')->distinct()
+                    ->select('url.ID', 'links.URL', 'url.ID_ORIGEM')
+                    ->join('links', 'url.URL', '=', 'links.ID')
+                    ->where('url.ID', $id_origem)
+                    ->get();
+
+                $id_origem = $origem[0]->ID_ORIGEM;
+                $info[] = $origem[0]->URL;
+            }
+
+            $array[] = array_reverse($info);
         }
 
         return $array;
