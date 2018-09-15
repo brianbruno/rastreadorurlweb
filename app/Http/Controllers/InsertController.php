@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Url;
+use App\Link;
 
 class InsertController extends Controller {
 
@@ -21,8 +22,19 @@ class InsertController extends Controller {
         $result = false;
         try {
             $url = $request->input('inputURL');
+
+            $result = Link::where('URL', '=', $url)->first();
+
+            if (empty($result)) {
+                $id = Link::insertGetId([
+                    'URL' => $url
+                ]);
+            } else {
+                $id = $result->ID;
+            }
+
             $data = array(
-                "URL" => $url,
+                "URL" => $id,
                 "ID_ORIGEM" => null
             );
             if (Url::insert($data))
